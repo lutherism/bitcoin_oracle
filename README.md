@@ -9,8 +9,12 @@ In my testing, I've been getting a 65%-75% correct prediciton rate.
 
 To use:
 
-cd to ./scripts folder in octave
-run 'training' to train a nueral net on data found in './data/bitcoin.csv'
-run 'plotNerons' to see bottom layer nuerons
-run 'runSim(X, y)' on a Matrix of price history features X, with tradeProfit vector y
-run 'predict(X)' on a vector of the previous 60 daily bitcoin prices X to get back the oracle's geuss for tomorrow's price.
+- cd to ./scripts folder in octave
+- 
+- run 'training' to train a nueral net on data found in './data/bitcoin.csv'
+- 
+- run 'plotNerons' to see bottom layer nuerons
+- 
+- run 'runSim(X, y)' on a Matrix of price history features X, with tradeProfit vector y
+- 
+- run 'predict(X)' on a vector of the previous 60 daily bitcoin prices X to get back the oracle's geuss for tomorrow's price.
