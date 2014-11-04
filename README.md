@@ -11,9 +11,9 @@ In my testing, I've been getting a 65%-75% correct prediciton rate.
 
  cd to ./scripts folder in octave
 
- run 'training' to train a nueral net on data found in './data/bitcoin.csv'
+ run 'training' to train a neural net on data found in './data/bitcoin.csv'
 
-  run 'plotNerons' to see bottom layer nuerons
+  run 'plotNerons' to see bottom layer neurons
 
   run 'runSim(X, y)' on a Matrix of price history features X, with tradeProfit vector y
 
