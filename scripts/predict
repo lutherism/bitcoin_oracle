@@ -1,0 +1,20 @@
+function [value] = predict(input)
+
+load '../weights/octave/01/L1.mat' Theta1;
+load '../weights/octave/01/L2.mat' Theta2;
+load '../weights/octave/01/L3.mat' Theta3;
+
+	z2 = Theta1 * input';
+	a2 = sigmoid(z2);
+	z3 = Theta2 * [1;a2];
+	a3 = sigmoid(z3);
+	z4 = Theta3 * [1;a3];
+	a4 = sigmoid(z4);
+	if (a4 > .5)
+		fprintf('The price will go down tomorrow');
+	endif
+	if (a4 < .5)
+		fprintf('The price will go up tomorrow');
+	endif
+	fprintf('I am @f 5 sure', (a4 * 100));
+end
