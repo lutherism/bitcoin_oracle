@@ -31,7 +31,7 @@ class Price {
 		return (string) $this->value;
 	}
 	public function getFinalDayProfit() {
-		$ret = ($this->value / $this->pastHundred[0])-1;
+		$ret = ($this->next / $this->value)-1;
 		return $ret;
 	}
 }
@@ -99,8 +99,7 @@ class Prices {
 			$ret .= Prices::scaleFeature($price->getFinalDayProfit(), $this->averageProfit,
 					$this->getProfitRange()).',';
 			foreach ($price->pastHundred as $n => $histPrice) {
-				$ret .= Prices::scaleFeature($histPrice-$price->value, $this->averageProfit,
-					$this->getProfitRange());
+				$ret .= Prices::scaleFeature($price->value/$histPrice, 0, 1);
 				$ret .= ($n != 99) ? ',' : PHP_EOL;
 			}
 		}
@@ -124,6 +123,7 @@ foreach ($history as $i => $lineItem) {
 			//$vals->value = $vals->value - $pastPrices[1];
 			$newPrice = new Price($vals);
 			$newPrice->pastHundred = $pastHundred;
+			$newPrice->next = attributesFromLine($history[$i+1])->value;
 			$prices->addPrice($newPrice);
 		}
 		array_pop($pastHundred);

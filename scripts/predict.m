@@ -1,8 +1,8 @@
 function [value] = predict(in)
 
-load '../weights/octave/01/L1.mat' Theta1;
-load '../weights/octave/01/L2.mat' Theta2;
-load '../weights/octave/01/L3.mat' Theta3;
+load '../weights/octave/02/L1.mat' Theta1;
+load '../weights/octave/02/L2.mat' Theta2;
+load '../weights/octave/02/L3.mat' Theta3;
 	plotNerons;
 	subplot(5,6,26);
 	plot(in);
@@ -16,6 +16,11 @@ subplot(5,6,28);
 	plot(a3);
 	z4 = Theta3 * [1;a3];
 	a4 = sigmoid(z4)
+	for i=1:size(a2)
+		if a2(i) > .7
+			subplot(5, 6, i);
+			plot(Theta1(i, :), 'g');
+		end
 	if (a4(2) > .5)
 		fprintf('The price will go up tomorrow');
 	endif

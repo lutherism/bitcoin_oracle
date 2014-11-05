@@ -1,12 +1,13 @@
 function [value] = simRun(X, y)
-load '../weights/octave/01/L1.mat' Theta1;
-load '../weights/octave/01/L2.mat' Theta2;
-load '../weights/octave/01/L3.mat' Theta3;
+load '../weights/octave/02/L1.mat' Theta1;
+load '../weights/octave/02/L2.mat' Theta2;
+load '../weights/octave/02/L3.mat' Theta3;
 	bank = 100;
 	m = size(X, 1);
 badtrades = 0;
 trades = 0;
 startingTotal = bank;
+tradeTimes = zeros(m, 1);
 for i=1:m
 	z2 = Theta1 * [1;X(i, :)'];
 	a2 = sigmoid(z2);
@@ -22,6 +23,7 @@ for i=1:m
 			invest = 100;
 		endif
 		bank -= invest;
+		tradeTimes(i) = 1;
 		bank += invest * (1 + y(i))
 		trades+=1;
 	else
@@ -37,3 +39,4 @@ trades
 (trades-badtrades) / trades
 profit = bank / startingTotal
 end
+
