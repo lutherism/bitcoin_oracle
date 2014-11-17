@@ -30,17 +30,14 @@ L2 = sigmoid(Theta2 * [ones(1, m); L1]);
 L3 = sigmoid(Theta3 * [ones(1, m); L2])';
 J = 0;
 for k=1:num_labels
-	test = y < 0;
-	if k == 1 
-		test = y > 0;
-	end
+	test = y > 0;
 	J += ((1/m) * sum((log(L3(:, k)) .* (test * -1)) - ((log((L3(:, k) * -1) + 1)) .* (((test) * -1) + 1))));
 end
 J += ((lambda / (2 * m)) * (sum(sum(nzTheta1.^2)) + sum(sum(nzTheta2.^2)) + sum(sum(nzTheta3.^2))));
 
 
 for i=1:m
-	yx = [y(i) > 0 ;y(i) < 0];
+	yx = [y(i)>0];
 	z2 = Theta1 * X(:, i);
 	a2 = sigmoid(z2);
 	z3 = Theta2 * [1;a2];
@@ -59,7 +56,7 @@ Theta2_grad = Theta2_grad ./ m;
 Theta1_grad = Theta1_grad ./ m;
 t1_reg = Theta1 .* (lambda / m);
 t2_reg = Theta2 .* (lambda / m);
-t3_reg = Theta3 .* (lambda /m);
+t3_reg = Theta3 .* (lambda / m);
 t1_reg(:, 1) = 0;
 t2_reg(:, 1) = 0;
 t3_reg(:, 1) = 0;
@@ -69,5 +66,6 @@ Theta1_grad = Theta1_grad+t1_reg;
 
 
 grad = [Theta1_grad(:) ; Theta2_grad(:); Theta3_grad(:)];
+J
 J=J(1,1);
 end

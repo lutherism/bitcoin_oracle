@@ -1,11 +1,13 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
-$history = file('../data/coindesk/bitcoin_historical.csv');
+$stock = 'rsh';
+$history = file('../data/'.$stock.'.csv');
+
 function attributesFromLine($str) {
 		$vals = explode(',', $str);
 		$ret = new stdClass();
 		$ret->date = strtotime($vals[0]);
-		$ret->value = isset($vals[1]) ? (float) $vals[1] : null;
+		$ret->value = isset($vals[6]) ? (float) $vals[1] : null;
 		return $ret;
 }
 
@@ -31,7 +33,7 @@ class Price {
 		return (string) $this->value;
 	}
 	public function getFinalDayProfit() {
-		$ret = ($this->next / $this->value)-1;
+		$ret = (($this->next / $this->value)-1)*5;
 		return $ret;
 	}
 }
@@ -96,11 +98,10 @@ class Prices {
 	public function toString() {
 		$ret = '';
 		foreach ($this->prices as $i=>$price) {
-			$ret .= Prices::scaleFeature($price->getFinalDayProfit(), $this->averageProfit,
-					$this->getProfitRange()).',';
+			$ret .= Prices::scaleFeature($price->getFinalDayProfit(), 0, 1).',';
 			foreach ($price->pastHundred as $n => $histPrice) {
-				$ret .= Prices::scaleFeature($price->value/$histPrice, 0, 1);
-				$ret .= ($n != 99) ? ',' : PHP_EOL;
+				$ret .= Prices::scaleFeature((($histPrice/$price->value)-1)*5, 0, 1);
+				$ret .= ($n != 9) ? ',' : PHP_EOL;
 			}
 		}
 		var_dump($this->getPriceRange());
@@ -114,13 +115,16 @@ class Prices {
 
 $prices = new Prices();
 $pastHundred = array();
+$history = array_reverse($history);
 $pastPrices = array(attributesFromLine($history[0])->value);
 foreach ($history as $i => $lineItem) {
+	if ($i + 2 == count($history)) {
+		continue;
+	}
 	$vals = attributesFromLine($lineItem);
 	array_unshift($pastPrices, $vals->value);
-	if (count($pastHundred) > 99) {
+	if (count($pastHundred) > 9) {
 		if ($vals->value > 0) {
-			//$vals->value = $vals->value - $pastPrices[1];
 			$newPrice = new Price($vals);
 			$newPrice->pastHundred = $pastHundred;
 			$newPrice->next = attributesFromLine($history[$i+1])->value;
@@ -131,6 +135,6 @@ foreach ($history as $i => $lineItem) {
 	array_unshift($pastHundred, $vals->value);
 }
 
-$storeData = fopen("../data/bitcoin.csv", 'w');
+$storeData = fopen("../data/$stock"."_stock.csv", 'w');
 fwrite($storeData, $prices->toString());
 fclose($storeData);
