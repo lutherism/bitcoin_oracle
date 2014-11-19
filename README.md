@@ -17,4 +17,4 @@ In my testing, I've been getting a 45%-64% correct prediciton rate on unseen tra
 
   run 'runSim(X, y)' on a Matrix of price history features X, with tradeProfit vector y
 
-  run 'predict(X)' on a vector of the previous 10 daily bitcoin price changes by ratio on vector X (in the form of nth_element = (nth_day_previous_price/0_day_price) - 1) to get back the oracle's geuss for tomorrow's price.
+  run 'predict(X)' on a vector of the previous 10 daily bitcoin price changes by ratio on vector X (in the form of nth_element = ((nth_day_previous_price/0_day_price) - 1) to get back the oracle's geuss for tomorrow's price.
