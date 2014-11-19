@@ -4,7 +4,7 @@ A Neural Net predictor written in Octave.
 
 The weights folder contains weights for a 10 in, 1 out network, with 2 25 unit hidden layers. It has been trained on daily bitcoin prices since 2010 (source:http://www.coindesk.com/), and alternately relative stock prices for certain high profile tech stocks in the same time period, in order to geuss if the price will be up the following day.
 
-In my testing, I've been getting a 45%-64% correct prediciton rate on unseen trail data sets. This is a hard problem, and I'm interested to see other people work on net's of their own.
+In my testing, I've been getting a 45%-64% correct prediciton rate on unseen trail data sets. This is a hard problem, and I'm interested to see other people work on nets of their own with tweaks to my lambda and cost function or data set.
 
 
 - To use:
