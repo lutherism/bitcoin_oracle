@@ -4,7 +4,7 @@ $stock = 'rsh';
 $history = file('../data/'.$stock.'.csv');
 
 function attributesFromLine($str) {
-		$vals = explode(',', $str);
+		$vals = explode(',', $str); ///THIS DOESN'T WORK!!!
 		$ret = new stdClass();
 		$ret->date = strtotime($vals[0]);
 		$ret->value = isset($vals[6]) ? (float) $vals[1] : null;
